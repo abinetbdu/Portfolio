@@ -52,7 +52,7 @@
         body::after {
             content: " ";
             display: block;
-            position: absolute;
+            position: fixed;
             top: 0; left: 0; bottom: 0; right: 0;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
             z-index: 2;
@@ -110,15 +110,16 @@
         .nav-links { display: flex; gap: 25px; }
         .nav-links a { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
         .nav-links a:hover, .nav-links a.active { color: var(--accent-primary); }
-        .menu-toggle { display: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+        .menu-toggle { display: none; color: #fff; font-size: 1.5rem; cursor: pointer; background: none; border: none; }
 
         /* --- HERO --- */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             position: relative;
             overflow: hidden;
+            padding-top: 80px;
         }
         .glow-blob {
             position: absolute;
@@ -138,6 +139,7 @@
             font-size: 1.2rem;
             margin-bottom: 20px;
             display: block;
+            min-height: 1.5rem; /* Prevent layout shift */
         }
         .typing::after { content: '|'; animation: blink 1s step-end infinite; color: var(--accent-primary); }
         @keyframes blink { 50% { opacity: 0; } }
@@ -151,6 +153,7 @@
             transition: all 0.3s ease;
             cursor: pointer;
             border: 1px solid var(--accent-primary);
+            font-size: 0.9rem;
         }
         .btn-primary {
             background: var(--accent-primary);
@@ -238,7 +241,7 @@
         }
         .skill-list li i { color: var(--accent-primary); margin-right: 10px; font-size: 0.8rem; }
 
-        /* --- EXPERIENCE & EDUCATION (Enhanced) --- */
+        /* --- EXPERIENCE & EDUCATION --- */
         .timeline-item {
             position: relative;
             padding-left: 40px;
@@ -247,6 +250,7 @@
             opacity: 0; transform: translateX(-20px);
             transition: 0.6s ease-out;
         }
+        .timeline-item:last-child { padding-bottom: 0; }
         .timeline-item.visible { opacity: 1; transform: translateX(0); }
         
         .timeline-dot {
@@ -372,6 +376,7 @@
             .nav-links.active { display: flex; }
             .menu-toggle { display: block; }
             .btn-outline { margin-left: 0; margin-top: 15px; }
+            .contact-wrapper { padding: 25px; }
         }
     </style>
 </head>
@@ -382,7 +387,7 @@
         <div class="container">
             <nav>
                 <a href="#" class="logo">&lt;Abinet<span class="highlight">Sec</span>/&gt;</a>
-                <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+                <button class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
                 <ul class="nav-links" id="navLinks">
                     <li><a href="#about">About</a></li>
                     <li><a href="#skills">Skills</a></li>
@@ -403,9 +408,12 @@
                 <span class="hero-subtitle typing" id="typing-text"></span>
                 <h1>I am <span class="gradient-text">Abinet Melkamu</span></h1>
                 <h3>Security Professional specializing in Penetration Testing, Vulnerability Assessment, and security research.</h3>
+                <br>
                 <div class="cta-group">
                     <a href="#projects" class="btn btn-primary">View My Work</a>
                     <a href="#contact" class="btn btn-outline">Contact Me</a>
+                    <!-- Direct CV Download Link Modified -->
+                    <a href="./Abinet_Melkamu_CV.pdf" download="Abinet_Melkamu_CV.pdf" class="btn btn-outline"><i class="fas fa-download"></i> Download CV</a>
                 </div>
             </div>
         </section>
@@ -417,7 +425,7 @@
                     <h2><span class="highlight">01.</span> About Me</h2>
                 </div>
                 <div class="about-grid">
-                    <!-- 1. User Photo (Updated to Ab.jpg) -->
+                    <!-- 1. User Photo -->
                     <div class="profile-photo-container fade-in-element">
                         <img src="./Ab.jpg" alt="Abinet Melkamu" class="profile-photo" onerror="this.src='https://ui-avatars.com/api/?name=Abinet+Melkamu&background=10b981&color=fff&size=512'">
                     </div>
@@ -438,6 +446,10 @@
                                  <li style="margin-bottom: 8px;"><i class="fas fa-brain" style="color: var(--accent-primary); margin-right: 10px;"></i> AI-Driven Threat Detection</li>
                              </ul>
                         </div>
+                        <div style="margin-top: 30px;">
+                            <!-- Direct CV Download Link Modified -->
+                            <a href="./Abinet_Melkamu_CV.pdf" download="Abinet_Melkamu_CV.pdf" class="btn btn-primary"><i class="fas fa-file-pdf"></i> Download Resume</a>
+                        </div>
                     </div>
                     
                     <!-- 3. Animated Skill Bars -->
@@ -445,7 +457,7 @@
                         <h3 style="margin-bottom: 25px; font-size: 1.2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">Proficiency</h3>
                         
                         <div class="skill-bar-container">
-                            <div class="skill-info"><span>Penetration Testing</span><span>90%</span></div>
+                            <div class="skill-info"><span>Junior SOC Analyst</span><span>90%</span></div>
                             <div class="progress-bg"><div class="progress-bar" data-width="90%"></div></div>
                         </div>
                         <div class="skill-bar-container">
@@ -461,7 +473,7 @@
                             <div class="progress-bg"><div class="progress-bar" data-width="91%"></div></div>
                         </div>
                         <div class="skill-bar-container">
-                            <div class="skill-info"><span>SOC Analyst</span><span>85%</span></div>
+                            <div class="skill-info"><span>Blue Team Operations</span><span>85%</span></div>
                             <div class="progress-bg"><div class="progress-bar" data-width="85%"></div></div>
                         </div>
                         <div class="skill-bar-container">
@@ -483,7 +495,7 @@
                     <div class="skill-category-box fade-in-element">
                         <h3>Technical Skills</h3>
                         <ul class="skill-list">
-                            <li><i class="fas fa-check"></i> Penetration Testing</li>
+                            <li><i class="fas fa-check"></i> Junior SOC Analyst</li>
                             <li><i class="fas fa-check"></i> Ethical Hacking</li>
                             <li><i class="fas fa-check"></i> Vulnerability Assessment</li>
                             <li><i class="fas fa-check"></i> Security Consulting</li>
@@ -607,7 +619,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- APISEC Link Updated -->
                 <div style="margin-top: 50px; text-align: center; opacity: 0;" class="fade-in-element">
                     <p style="color: var(--text-muted);">Issued by</p>
                     <h3 style="margin: 10px 0; color: #fff;">APISEC University</h3>
@@ -626,38 +637,37 @@
                     <h2><span class="highlight">05.</span> Featured Projects</h2>
                 </div>
                 <div class="project-grid">
+                    <!-- Project 1: Updated GitHub Link -->
                     <div class="project-card fade-in-element">
                         <img src="https://picsum.photos/seed/security/600/400" alt="AI Threat Detection" class="project-img">
                         <div class="project-body">
                             <div class="tech-stack">Python • AI/ML • Cyber Security</div>
                             <h3>AI Based Website Monitoring & Threat Detection</h3>
                             <p>An intelligent system utilizing AI to monitor website traffic in real-time, identifying anomalies and potential threats.</p>
-                            <a href="https://github.com/henon-chare/CYBERGUARD6" target="_blank" class="highlight"><i class="fab fa-github"></i> View Code</a>
+                            <a href="https://github.com/abinetbdu/New_Cyber_Guard" target="_blank" class="highlight"><i class="fab fa-github"></i> View Code</a>
                         </div>
                     </div>
+                    <!-- Project 2: Updated GitHub Link -->
                     <div class="project-card fade-in-element">
                         <img src="https://picsum.photos/seed/edu/600/400" alt="AI Educational Platform" class="project-img">
                         <div class="project-body">
                             <div class="tech-stack">AI • Web Development • Education</div>
                             <h3>AI Based Educational Assistant Platform</h3>
                             <p>A platform assisting students with AI-driven answers and personalized learning paths in technology.</p>
-                            <a href="#" target="_blank" class="highlight"><i class="fab fa-github"></i> View Code</a>
+                            <a href="https://github.com/fsr-software-solution/" target="_blank" class="highlight"><i class="fab fa-github"></i> View Code</a>
                         </div>
                     </div>
                     
-                    <!-- Brana Tech Solution Project (Updated) -->
                     <div class="project-card fade-in-element">
-                        <img src="https://picsum.photos/seed/tech/600/400" alt="Brana Tech Solution" class="project-img">
+                        <img src="https://picsum.photos/seed/tech/600/400" alt="Timir Tech Solutions" class="project-img">
                         <div class="project-body">
                             <div class="tech-stack">Consulting • Solutions</div>
-                            <h3>Brana Tech Solution</h3>
-                            <p>A collaborative project focusing on technological solutions and consulting services with strong leadership.</p>
+                            <h3>Timir Tech Solutions</h3>
+                            <p>A private company providing technological solutions and consulting services.</p>
                             
-                            <!-- Social Links Added -->
                             <div class="project-socials">
-                                <a href="https://t.me/Brana_Tech_Solution" target="_blank" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
-                                <a href="https://www.tiktok.com/@brana_tech_soluti?_r=1&_t=ZS-95CCT2odIn7" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
-                                <a href="https://www.youtube.com/@branatechsolution" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                                <a href="https://t.me/Timir_Tech" target="_blank" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+                                <a href="http://www.youtube.com/@Timir_Tech_Solutions" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
                             </div>
                         </div>
                     </div>
@@ -665,16 +675,14 @@
             </div>
         </section>
 
-        <!-- Contact Section (Updated) -->
+        <!-- Contact Section -->
         <section id="contact" style="background: rgba(2,6,23,0.5);">
             <div class="container">
                 <div class="section-header">
-                    <h2><span class="highlight">06.</span>Contact Me Here</h2>
+                    <h2><span class="highlight">06.</span> Contact Me Here</h2>
                 </div>
                 <div class="contact-wrapper fade-in-element">
-                    <!-- Contact Grid -->
                     <div class="contact-grid">
-                        <!-- Primary Phone -->
                         <div class="contact-item">
                             <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
                             <div class="contact-text">
@@ -682,7 +690,6 @@
                                 <a href="tel:+251923248825">+251 923 248 825</a>
                             </div>
                         </div>
-                        <!-- Secondary Phone -->
                         <div class="contact-item">
                             <div class="contact-icon"><i class="fas fa-phone"></i></div>
                             <div class="contact-text">
@@ -690,7 +697,6 @@
                                 <a href="tel:+251709162729">+251 709 162 729</a>
                             </div>
                         </div>
-                        <!-- Email -->
                         <div class="contact-item">
                             <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                             <div class="contact-text">
@@ -698,7 +704,6 @@
                                 <a href="mailto:abinetmelkamu118@gmail.com">abinetmelkamu118@gmail.com</a>
                             </div>
                         </div>
-                        <!-- LinkedIn -->
                         <div class="contact-item">
                             <div class="contact-icon"><i class="fab fa-linkedin-in"></i></div>
                             <div class="contact-text">
@@ -706,7 +711,6 @@
                                 <a href="https://www.linkedin.com/in/abinet-melkamu-2321ab374/" target="_blank">View Profile</a>
                             </div>
                         </div>
-                        <!-- GitHub -->
                         <div class="contact-item">
                             <div class="contact-icon"><i class="fab fa-github"></i></div>
                             <div class="contact-text">
@@ -714,7 +718,6 @@
                                 <a href="https://github.com/abinetbdu/" target="_blank">@abinetbdu</a>
                             </div>
                         </div>
-                        <!-- Telegram -->
                         <div class="contact-item">
                             <div class="contact-icon"><i class="fab fa-telegram-plane"></i></div>
                             <div class="contact-text">
@@ -724,32 +727,69 @@
                         </div>
                     </div>
 
-                    <!-- Contact Form -->
-                    <h2 style="text-align: center; margin-bottom: 20px; font-size: 1.2rem;">Send a Message</h2>
-                    <form action="https://formspree.io/f/xlgovnpn" method="POST">
-                        <div class="form-group">
-                            <label class="form-label">Name</label>
-                            <input type="text" name="name" class="form-control" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control" placeholder="your@email.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Phone</label>
-                            <input type="tel" name="phone" class="form-control" placeholder="+251..." required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Message</label>
-                            <textarea name="message" class="form-control" placeholder="How can I help?" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </main>
+                   <h2 style="text-align: center; margin-bottom: 20px; font-size: 1.2rem;">
+    Send a Message
+</h2>
 
+<form action="https://formspree.io/f/xlgovnpn" method="POST">
+
+    <!-- Optional: email subject -->
+    <input type="hidden" name="_subject" value="New message from Portfolio">
+
+    <!-- Optional: redirect after success -->
+    <!-- Replace with your deployed URL later -->
+    <!-- <input type="hidden" name="_next" value="https://yourusername.github.io/portfolio/thank-you.html"> -->
+
+    <div class="form-group">
+        <label class="form-label">Name</label>
+        <input
+            type="text"
+            name="name"
+            class="form-control"
+            placeholder="Your Name"
+            autocomplete="name"
+            required>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">Email</label>
+        <input
+            type="email"
+            name="email"
+            class="form-control"
+            placeholder="your@email.com"
+            autocomplete="email"
+            required>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">Phone</label>
+        <input
+            type="tel"
+            name="phone"
+            class="form-control"
+            placeholder="+251..."
+            autocomplete="tel">
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea
+            name="message"
+            class="form-control"
+            placeholder="How can I help?"
+            rows="5"
+            required></textarea>
+    </div>
+
+    <button
+        type="submit"
+        class="btn btn-primary"
+        style="width: 100%;">
+        Send Message
+    </button>
+
+</form>
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -759,7 +799,7 @@
                 <a href="https://github.com/abinetbdu/" target="_blank"><i class="fab fa-github"></i></a>
                 <a href="mailto:abinetmelkamu118@gmail.com"><i class="fas fa-envelope"></i></a>
             </div>
-            <p style="color: var(--text-muted); font-family: var(--font-mono);">Built by Abinet Melkamu | &copy; <span id="year"></span></p>
+            <p style="color: var(--text-muted); font-family: var(--font-mono); margin-top: 15px;">Built by Abinet Melkamu | &copy; <span id="year"></span></p>
         </div>
     </footer>
 
@@ -776,10 +816,11 @@
         // Typing Effect
         const textElement = document.getElementById('typing-text');
         const texts = [
-            "Penetration Tester", 
-            "Ethical Hacker", 
-            "Vulnerability Assessment", 
-            "Security Consultant", 
+            "Junior SOC Analyst",
+            "Ethical Hacker",
+            "Vulnerability Assessor",
+            "Security Consultant",
+            "Founder of Timir Tech Solutions",
             "Cyber Security Enthusiast"
         ];
         let count = 0, index = 0, currentText = "", letter = "";
@@ -788,8 +829,12 @@
             currentText = texts[count];
             letter = currentText.slice(0, ++index);
             textElement.textContent = letter;
-            if (letter.length === currentText.length) { count++; index = 0; setTimeout(type, 2000); } 
-            else { setTimeout(type, 100); }
+            if (letter.length === currentText.length) { 
+                count++; index = 0; 
+                setTimeout(type, 2000); 
+            } else { 
+                setTimeout(type, 100); 
+            }
         })();
 
         // Intersection Observer for Animations
